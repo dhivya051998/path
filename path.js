@@ -47,6 +47,65 @@ const list = {
                 },
             ]
         },
+        {
+            continentName: "Europe",
+            countries: [
+                {
+                    countryName: "Germany",
+                    states: [
+                        {
+                            stateName: "Bavaria",
+                            districts: [
+                                {
+                                    districtName: "Munich",
+                                }, {
+                                    districtName: "Nuremberg",
+                                }
+                                
+                            ]
+                        },
+                        {
+                            stateName: "Berlin",
+                            districts: [
+                                {
+                                    districtName: "Mitte",
+                                }, {
+                                    districtName: "Charlottenburg",
+                                }
+                            ]
+                        }  
+                    ],
+                },
+                {
+                    countryName: "France",
+                    states: [
+                        {
+                            stateName: "Ile-de-France",
+                            districts: [
+                                {
+                                    districtName: "Paris",
+                                }, {
+                                    districtName: "Versailles",
+                                }
+                                
+                            ]
+                        },
+                        {
+                            stateName: "Provence-Alpes-Côte d'Azur",
+                            districts: [
+                                {
+                                    districtName: "Marseille",
+                                }, {
+                                    districtName: "Nice",
+                                }
+                            ]
+                        }  
+                    ],
+                },
+            ]
+        },
+
+        
     ]
 }
 

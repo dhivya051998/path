@@ -2,23 +2,36 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: sans-serif;
   }
   .container{
     display: flex;
     flex-direction: column;
     gap: 20px;
-    align-items: center;
+    height: 100vh;
+  }
+  h2{
+    text-align: center;
   }
   .align{
     display: flex;
+    justify-content: center;
     gap: 20px;
   }
   input{
     padding: 6px 12px;
+    outline: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  input:focus{
+    border-color: #1677ff;
+    box-shadow: 0 0 0 2px rgba(5, 145, 255, 0.1);
   }
   button{
     padding: 5px 12px;
-    background-color: beige;
+    background-color: #1677FF;
+    color: #fff;
     border: none;
     cursor: pointer;
     font-size: 14px;
@@ -26,15 +39,18 @@
   }
   .content{
     display: flex;
-    height: 100vh;
-    width: 100vw;
+    gap: 10px;
+    height: 550px;
   }
   .treeStructure,.pathList{
-    flex-grow: 1;
+    width: 50%;
     padding: 10px;
+    border: 1px solid#ccc;
+    overflow: auto;
   }
   ul{
     padding-left: 20px;
+    font-size: 16px;
   }
   li{
     list-style-type: none;
@@ -58,8 +74,7 @@
   }
   .arrow{
     display: flex;
-    height: 10px;
-    width: 10px;
+    padding: 8px;
     margin: 10px;
     background-image: url(https://www.svgrepo.com/show/376370/arrow-right-line.svg);
     background-size: cover;
@@ -67,6 +82,7 @@
   .path{
     display: flex;
     align-items: center;
+    font-size: 16px;
   }
   b{
     font-weight: bold;
