@@ -112,7 +112,6 @@ function generateTree(data, container) {
     const listElement = document.createElement('ul');
     container.appendChild(listElement);
     data.forEach(item => {
-        console.log(item)
         const liElement = document.createElement('li');
         const spanElement = document.createElement('span');
         if (item.children) {
