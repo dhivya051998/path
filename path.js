@@ -61,7 +61,7 @@ const list = {
                                 }, {
                                     districtName: "Nuremberg",
                                 }
-                                
+
                             ]
                         },
                         {
@@ -73,7 +73,7 @@ const list = {
                                     districtName: "Charlottenburg",
                                 }
                             ]
-                        }  
+                        }
                     ],
                 },
                 {
@@ -87,7 +87,7 @@ const list = {
                                 }, {
                                     districtName: "Versailles",
                                 }
-                                
+
                             ]
                         },
                         {
@@ -99,76 +99,64 @@ const list = {
                                     districtName: "Nice",
                                 }
                             ]
-                        }  
+                        }
                     ],
                 },
             ]
         },
 
-        
+
     ]
 }
-
-function CreateTreeStructure() {
-    const container = document.querySelector('.treeStructure');
-    container.innerHTML = '';
-    list.continents.forEach(continent => {
-        const continentElement = document.createElement('ul');
-        continentElement.innerHTML = `<li><span><div class="arrowIcon"></div>${continent.continentName}</span></li>`;
-        container.appendChild(continentElement);
-
-        const countriesList = document.createElement('ul');
-        countriesList.style.display = 'none';
-        continentElement.appendChild(countriesList);
-
-        continentElement.querySelector('span').addEventListener('click', () => {
-            countriesList.style.display = countriesList.style.display === 'none' ? 'block' : 'none';
-            continentElement.querySelector('span div').classList.toggle("arrow-rotate");
-        });
-
-        continent.countries.forEach(country => {
-            const countryElement = document.createElement('li');
-            countryElement.innerHTML = ` <span><div class="arrowIcon"></div>${country.countryName}</span>`;
-            countriesList.appendChild(countryElement);
-
-            const statesList = document.createElement('ul');
-            statesList.style.display = 'none';
-            countryElement.appendChild(statesList);
-
-            countryElement.querySelector('span').addEventListener('click', () => {
-                statesList.style.display = statesList.style.display === 'none' ? 'block' : 'none';
-                countryElement.querySelector('span div').classList.toggle("arrow-rotate");
+function generateTree(data, container) {
+    const listElement = document.createElement('ul');
+    container.appendChild(listElement);
+    data.forEach(item => {
+        console.log(item)
+        const liElement = document.createElement('li');
+        const spanElement = document.createElement('span');
+        if (item.children) {
+            const arrowIcon = document.createElement('div');
+            arrowIcon.classList.add('arrowIcon');
+            spanElement.appendChild(arrowIcon);
+        }
+        spanElement.innerHTML += item.name; 
+        liElement.appendChild(spanElement);
+        listElement.appendChild(liElement);
+        if (item.children) {
+            const ulElement = document.createElement('ul');
+            ulElement.style.display = 'none';
+            liElement.appendChild(ulElement);
+            spanElement.addEventListener('click', () => {
+                ulElement.style.display = ulElement.style.display === 'none' ? 'block' : 'none';
+                spanElement.querySelector('div').classList.toggle('arrow-rotate');
             });
-
-            country.states.forEach(state => {
-                const stateElement = document.createElement('li');
-                stateElement.innerHTML = ` <span><div class="arrowIcon"></div>${state.stateName}</span>`;
-                statesList.appendChild(stateElement);
-
-                const districtsList = document.createElement('ul');
-                districtsList.style.display = 'none';
-                stateElement.appendChild(districtsList);
-
-                 stateElement.querySelector('span').addEventListener('click', () => {
-                    districtsList.style.display = districtsList.style.display === 'none' ? 'block' : 'none';
-                    stateElement.querySelector('span div').classList.toggle("arrow-rotate");
-                });
-
-                state.districts.forEach(district => {
-                    const districtElement = document.createElement('li');
-                    districtElement.textContent = district.districtName;
-                    districtsList.appendChild(districtElement);
-                });
-               
-            });
-            
-        });
-        
+            generateTree(item.children, ulElement);
+        }
     });
 }
-
-CreateTreeStructure();
-
+function createTreeStructure() {
+    const container = document.querySelector('.treeStructure');
+    container.innerHTML = '';
+    const treeData = [];
+    list.continents.forEach(continent => {
+        const continentList = { name: continent.continentName, children: [] };
+        continent.countries.forEach(country => {
+            const countryList = { name: country.countryName, children: [] };
+            country.states.forEach(state => {
+                const StateList = { name: state.stateName, children: [] };
+                state.districts.forEach(district => {
+                    StateList.children.push({ name: district.districtName });
+                });
+                countryList.children.push(StateList);
+            });
+            continentList.children.push(countryList);
+        });
+        treeData.push(continentList);
+    });
+    generateTree(treeData, container);
+}
+createTreeStructure();
 function findPath(name) {
     for (const continent of list.continents) {
         if (continent.continentName.toLocaleLowerCase() == name.toLocaleLowerCase()) {
@@ -196,8 +184,8 @@ function getPath() {
     var name = document.querySelector("input").value;
     document.querySelector(".path").innerHTML = findPath(name);
 }
-function search(){
-    if(event.keyCode == 13){
+function search() {
+    if (event.keyCode == 13) {
         getPath();
     }
 }
