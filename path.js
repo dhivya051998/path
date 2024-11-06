@@ -117,15 +117,15 @@ function findPath(name) {
         }
         for (const country of continent.countries) {
             if (country.countryName.toLowerCase() == name.toLowerCase()) {
-                return `${continent.continentName}-${country.countryName}`;
+                return `${continent.continentName} <span class="arrow"></span> ${country.countryName}`;
             }
             for (const state of country.states) {
                 if (state.stateName.toLowerCase() == name.toLowerCase()) {
-                    return `${continent.continentName}-${country.countryName}-${state.stateName}`;
+                    return `${continent.continentName} <span class="arrow"></span> ${country.countryName} <span class="arrow"></span> ${state.stateName}`;
                 }
                 for (const district of state.districts) {
                     if (district.districtName.toLowerCase() == name.toLowerCase()) {
-                        return `${continent.continentName}-${country.countryName}-${state.stateName}-${district.districtName}`;
+                        return `${continent.continentName} <span class="arrow"></span> ${country.countryName} <span class="arrow"></span> ${state.stateName} <span class="arrow"></span> ${district.districtName}`;
                     }
                 }
             }
@@ -134,7 +134,7 @@ function findPath(name) {
 }
 function getPath() {
     var name = document.querySelector("input").value;
-    document.querySelector(".pathList").innerHTML = findPath(name);
+    document.querySelector(".path").innerHTML = findPath(name);
 }
 
 
