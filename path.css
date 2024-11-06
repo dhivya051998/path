@@ -48,7 +48,7 @@
     transition: .5s;
   }
   .treeStructure span{
-    display: flex;
+    display:inline-flex;
     align-items: center;
     gap: 6px;
   }
@@ -67,4 +67,8 @@
   .path{
     display: flex;
     align-items: center;
+  }
+  b{
+    font-weight: bold;
+    font-size: 20px;
   }

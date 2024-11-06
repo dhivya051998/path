@@ -131,10 +131,16 @@ function findPath(name) {
             }
         }
     }
+    return `<b>Value not found</b>`
 }
 function getPath() {
     var name = document.querySelector("input").value;
     document.querySelector(".path").innerHTML = findPath(name);
+}
+function search(){
+    if(event.keyCode == 13){
+        getPath();
+    }
 }
 
 
