@@ -142,14 +142,15 @@ function createTreeStructure() {
         const continentList = { name: continent.continentName, children: [] };
         continent.countries.forEach(country => {
             const countryList = { name: country.countryName, children: [] };
+            continentList.children.push(countryList);
             country.states.forEach(state => {
                 const StateList = { name: state.stateName, children: [] };
+                countryList.children.push(StateList);
                 state.districts.forEach(district => {
                     StateList.children.push({ name: district.districtName });
                 });
-                countryList.children.push(StateList);
             });
-            continentList.children.push(countryList);
+            
         });
         treeData.push(continentList);
     });
