@@ -55,7 +55,7 @@ function CreateTreeStructure() {
     container.innerHTML = '';
     list.continents.forEach(continent => {
         const continentElement = document.createElement('ul');
-        continentElement.innerHTML = `<li> <  <span>${continent.continentName}</span></li>`;
+        continentElement.innerHTML = `<li><span><div class="arrowIcon"></div>${continent.continentName}</span></li>`;
         container.appendChild(continentElement);
 
         const countriesList = document.createElement('ul');
@@ -64,11 +64,12 @@ function CreateTreeStructure() {
 
         continentElement.querySelector('span').addEventListener('click', () => {
             countriesList.style.display = countriesList.style.display === 'none' ? 'block' : 'none';
+            continentElement.querySelector('span div').classList.toggle("arrow-rotate");
         });
 
         continent.countries.forEach(country => {
             const countryElement = document.createElement('li');
-            countryElement.innerHTML = `< <span>${country.countryName}</span>`;
+            countryElement.innerHTML = ` <span><div class="arrowIcon"></div>${country.countryName}</span>`;
             countriesList.appendChild(countryElement);
 
             const statesList = document.createElement('ul');
@@ -77,11 +78,12 @@ function CreateTreeStructure() {
 
             countryElement.querySelector('span').addEventListener('click', () => {
                 statesList.style.display = statesList.style.display === 'none' ? 'block' : 'none';
+                countryElement.querySelector('span div').classList.toggle("arrow-rotate");
             });
 
             country.states.forEach(state => {
                 const stateElement = document.createElement('li');
-                stateElement.innerHTML = `< <span>${state.stateName}</span>`;
+                stateElement.innerHTML = ` <span><div class="arrowIcon"></div>${state.stateName}</span>`;
                 statesList.appendChild(stateElement);
 
                 const districtsList = document.createElement('ul');
@@ -90,6 +92,7 @@ function CreateTreeStructure() {
 
                  stateElement.querySelector('span').addEventListener('click', () => {
                     districtsList.style.display = districtsList.style.display === 'none' ? 'block' : 'none';
+                    stateElement.querySelector('span div').classList.toggle("arrow-rotate");
                 });
 
                 state.districts.forEach(district => {
