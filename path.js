@@ -160,17 +160,20 @@ createTreeStructure();
 function findPath(name, location = list.continents, path = '') {
     for (const item of location) {
         const itemName = item.continentName || item.countryName || item.stateName || item.districtName;
-        if (itemName.toLowerCase() === name.toLowerCase()) {
+        if (itemName && itemName.toLowerCase() === name.toLowerCase()) {
             return `${path}${itemName}`;
         }
         const children = item.countries || item.states || item.districts;
         if (children) {
             const result = findPath(name, children, `${path}${itemName} <span class="arrow"></span> `);
-            return result;
+            if (result && result !== `<b>Value not found</b>`) {
+                return result;
+            }
         }
     }
     return `<b>Value not found</b>`;
 }
+
 
 function getPath() {
     var name = document.querySelector("input").value;
