@@ -1,5 +1,6 @@
+
 const list = {
-    continents: [
+    continents:[
         {
             continentName: "Asia",
             countries: [
@@ -105,7 +106,6 @@ const list = {
             ]
         },
 
-
     ]
 }
 function generateTree(data, container) {
@@ -157,29 +157,21 @@ function createTreeStructure() {
     generateTree(treeData, container);
 }
 createTreeStructure();
-function findPath(name) {
-    for (const continent of list.continents) {
-        if (continent.continentName.toLocaleLowerCase() == name.toLocaleLowerCase()) {
-            return `${continent.continentName}`
+function findPath(name, location = list.continents, path = '') {
+    for (const item of location) {
+        const itemName = item.continentName || item.countryName || item.stateName || item.districtName;
+        if (itemName.toLowerCase() === name.toLowerCase()) {
+            return `${path}${itemName}`;
         }
-        for (const country of continent.countries) {
-            if (country.countryName.toLowerCase() == name.toLowerCase()) {
-                return `${continent.continentName} <span class="arrow"></span> ${country.countryName}`;
-            }
-            for (const state of country.states) {
-                if (state.stateName.toLowerCase() == name.toLowerCase()) {
-                    return `${continent.continentName} <span class="arrow"></span> ${country.countryName} <span class="arrow"></span> ${state.stateName}`;
-                }
-                for (const district of state.districts) {
-                    if (district.districtName.toLowerCase() == name.toLowerCase()) {
-                        return `${continent.continentName} <span class="arrow"></span> ${country.countryName} <span class="arrow"></span> ${state.stateName} <span class="arrow"></span> ${district.districtName}`;
-                    }
-                }
-            }
+        const children = item.countries || item.states || item.districts;
+        if (children) {
+            const result = findPath(name, children, `${path}${itemName} <span class="arrow"></span> `);
+            return result;
         }
     }
-    return `<b>Value not found</b>`
+    return `<b>Value not found</b>`;
 }
+
 function getPath() {
     var name = document.querySelector("input").value;
     document.querySelector(".path").innerHTML = findPath(name);
